@@ -1,0 +1,60 @@
+:root {
+--card-back: #b30d0d;
+--card-back-alt:rgb(173, 4, 4);
+--card-back-border: #FFFFFF;
+
+
+--card-height:175px;
+--card-width:112.5px;
+
+--card-border-size:6px;
+--card-border-radius-size:6px;
+--card-outer-border-size:1px;
+}
+
+body {
+    display:flex;
+    justify-content:center;
+    align-items: center;
+
+    height:100dvh;
+
+    background-color:darkgreen;
+}
+
+.card {
+    display:flex;
+    justify-content:center;
+    align-items: center;
+
+    position:relative;
+    height:var(--card-height);
+    width:var(--card-width);
+
+    background-color:var(--card-back);
+
+    border: var(--card-border-size) solid var(--card-back-border);
+    border-radius: var(--card-border-radius-size);
+}
+
+.card:after {
+    content:" ";
+
+    position:absolute;
+    z-index:-1;
+    height:100%;
+    width:100%;
+
+
+
+    border:calc(var(--card-border-size) + var(--card-outer-border-size)) solid var(--card-back);
+    border-radius: var(--card-border-radius-size);
+}
+
+.card-back-iso {
+    background-color: var(--card-back-alt);
+    opacity: 0.8;
+    background-image:  linear-gradient(30deg, var(--card-back) 12%, transparent 12.5%, transparent 87%, var(--card-back) 87.5%, var(--card-back)), linear-gradient(150deg, var(--card-back) 12%, transparent 12.5%, transparent 87%, var(--card-back) 87.5%, var(--card-back)), linear-gradient(30deg, var(--card-back) 12%, transparent 12.5%, transparent 87%, var(--card-back) 87.5%, var(--card-back)), linear-gradient(150deg, var(--card-back) 12%, transparent 12.5%, transparent 87%, var(--card-back) 87.5%, var(--card-back)), linear-gradient(60deg, var(--card-back)77 25%, transparent 25.5%, transparent 75%, var(--card-back)77 75%, var(--card-back)77), linear-gradient(60deg, var(--card-back)77 25%, transparent 25.5%, transparent 75%, var(--card-back)77 75%, var(--card-back)77);
+    background-size: 20px 35px;
+    background-position: 0 0, 0 0, 10px 18px, 10px 18px, 0 0, 10px 18px;
+}
