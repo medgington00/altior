@@ -2,10 +2,103 @@
 <html>
     <head>
         <link rel="stylesheet" href="style.css">
-        <title> Card Game </title>
+        <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+        <title> Altior </title>
+        <!-- Favicon Playing Cards created by Freepick: "https://www.flaticon.com/free-icons/playing-cards" -->
+        <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
     </head>
 
-    <body>
-        <div class="card spade" class="card-back-iso"> </div>
+    <body onload="OnLoad()" id="body">
+
+        <div class="template-container" style="display:none;">
+            <div id="diamond-template" class="card-container">
+                <div id="diamond-" class="card" class="is-flipped">
+                    <div class="card-face back"> </div>
+                    <div class="card-face front"> 
+                        <div class="suit-one"> ♦️ </div>
+                        <div class="num" style="color:red"> </div>
+                        <div class="suit-two"> ♦️ </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="heart-template" class="card-container">
+                <div id="diamond-" class="card" class="is-flipped">
+                    <div class="card-face back"> </div>
+                    <div class="card-face front"> 
+                        <div class="suit-one"> ♥️ </div>
+                        <div class="num" style="color:red"> 3 </div>
+                        <div class="suit-two"> ♥️ </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="spade-template" class="card-container">
+                <div id="diamond-" class="card" class="is-flipped">
+                    <div class="card-face back"> </div>
+                    <div class="card-face front"> 
+                        <div class="suit-one"> ♠️ </div>
+                        <div class="num" style="color:#635994"> </div>
+                        <div class="suit-two"> ♠️ </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="settings-popup">
+            <span style="display:flex;flex-direction: column;justify-content: center; align-items: center;">
+                <p> Card Color </p>
+                <span class="card-color-container" style="display:flex;flex-direction: row;gap:8px 8px;">
+                    <button class="card-color-button one" onclick="SetCardColor('1')"> </button>
+                    <button class="card-color-button two" onclick="SetCardColor('2')"> </button>
+                    <button class="card-color-button three" onclick="SetCardColor('3')"> </button>
+                </span>
+            </span>
+            <span style="display:flex;flex-direction: column;justify-content: center; align-items: center;">
+                <p> Table Color </p>
+                <span class="table-color-container" style="display:flex;flex-direction: row;gap:8px 8px;">
+                    <button class="table-color-button one" onclick="SetTableBackground('1')"> </button>
+                    <button class="table-color-button two" onclick="SetTableBackground('2')"> </button>
+                    <button class="table-color-button three" onclick="SetTableBackground('3')"> </button>
+                </span>
+            </span>
+            
+            
+        </div>
+
+        <div id="container">
+            <div class="navbar-container">
+                <button id="new-game-button" onclick="NewGame()"> New Game </button>
+                <h1 style="font-family: 'Times New Roman', serif;color:white;"> Altior </h1>
+                <button id="settings-button" onclick="OpenSettings()"> Settings </button>
+            </div>
+    
+            <div class="game-container">
+    
+                <div id="heart-row" class="card-row"> 
+                    <div id="heart-extra" class="extra-row"> </div>
+                </div>
+        
+                <div id="diamond-row" class="card-row"> 
+                    <div class="left-label" id="opponent-left"> <p> Opponent </p> </div>
+                    <div id="diamond-extra" class="extra-row"> </div>
+                </div>
+        
+                <div id="spade-row" class="card-row"> 
+                    <div class="left-label"> <p> Player </p> </div>
+                    <div id="spade-extra" class="extra-row"> </div>
+                </div>    
+    
+                <div id="result-row" class="card-row"> 
+                    <p id="win-text"> Points: 0</p>
+                    <p id="result-text"> </p>
+                    <p id="streak-text"> Streak: 0</p> 
+                    <button style="position:absolute; right:16px;font-family: 'Roboto';background:none;border:none;font-size:16px;color:white;"> ? </button>
+                </div>
+            </div>
+        </div>
+        
+        <footer> Created by&nbsp; <a href="https://michael-edgington.com/" target="_blank" style="text-decoration: underline;color:white;"> Michael Edgington </a> </footer>
     </body>
+    <script src="script.js"></script> 
 </html>

@@ -1,60 +1,414 @@
 :root {
+--navbar-bg: #333333;
+--navbar-hover-bg: #202020 ;
+
+--table-bg-one: #249c38;
+--table-bg-two: #4e1d6e;
+--table-bg-three: #222222;
+--table-bg: var(--table-bg-one);
+
 --card-back: #b30d0d;
---card-back-alt:rgb(173, 4, 4);
+--card-back-alt: #830808;
+--card-back-one: #b30d0d;
+--card-back-alt-one: #830808;
+--card-back-two: #1464af;
+--card-back-alt-two: #0671d6;
 --card-back-border: #FFFFFF;
 
+--card-front: #ffffff;
+--card-front-border: var(--card-back);
 
---card-height:175px;
---card-width:112.5px;
+--card-height:96px;
+--card-width:calc(var(--card-height) / 1.4);
+--card-padding:calc(var(--card-width)/3);
 
---card-border-size:6px;
---card-border-radius-size:6px;
---card-outer-border-size:1px;
+--card-border-size:calc(var(--card-height) / 30);
+--card-border-radius-size:calc(var(--card-height) / 30);
+
+--footer-height:48px;
 }
 
 body {
     display:flex;
-    justify-content:center;
+    justify-content: center;
+    align-items: center;
+
+    margin:0;
+    overflow:hidden;
+    height:100dvh;
+    width:100%;
+
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+}
+
+button {
+    cursor: pointer;
+}
+
+#container {
+    display:flex;
+    justify-content: center;
     align-items: center;
 
     height:100dvh;
-
-    background-color:darkgreen;
+    width:100%;
 }
 
-.card {
+#settings-popup {
     display:flex;
-    justify-content:center;
+    flex-direction: column;
+    justify-content: space-around;
     align-items: center;
+
+    position:absolute;
+    width:212px;
+    height:256px;
+    top:-256px;
+    right:0;
+    z-index: 1;
+
+    font-family: 'Roboto';
+    color:white;
+
+    background-color:var(--navbar-bg);
+
+    border-bottom-left-radius: 16px;
+
+    transition: .3s;
+}
+
+.navbar-container {
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+
+    position:absolute;
+    width:100%;
+    height:60px;
+    top:0;
+    left:0;
+    z-index: 2;
+
+    background-color:var(--navbar-bg);
+}
+
+#new-game-button {
+    display:flex;
+    justify-content: center;
+    align-items: center;
+
+    height:100%;
+    width:212px;
+
+    font-family: 'Roboto';
+    font-size: 22px;
+    color:white;
+
+    background-color:var(--navbar-bg);
+
+    border:none;   
+}
+
+#new-game-button:hover {
+    filter:brightness(.75);
+}
+
+#settings-button {
+    display:flex;
+    justify-content: center;
+    align-items: center;
+
+    height:100%;
+    width:212px;
+
+    font-family: 'Roboto';font-size: 22px;
+    color:white;
+
+    background-color:var(--navbar-bg);
+
+    border:none;
+
+    
+}
+
+#settings-button:hover {
+    filter:brightness(.75);
+}
+
+.card-color-button {
+    width:32px;
+    height:32px;
+    border-radius: 16px;
+}
+
+.card-color-container .one {
+    background-color:var(--card-back-one);
+}
+
+.card-color-container .two {
+    background-color:var(--card-back-two);
+}
+
+.card-color-container .three {
+}
+
+.table-color-button {
+    width:32px;
+    height:32px;
+    border-radius: 16px;
+}
+
+.table-color-container .one {
+    background-color:var(--table-bg-one);
+}
+
+.table-color-container .two {
+    background-color:var(--table-bg-two);
+}
+
+.table-color-container .three {
+    background-color:var(--table-bg-three);
+}
+
+.game-container {
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-start;
+    align-items: center;
+    gap:calc(var(--card-height) / 4) 0px;
+
+    position:absolute;
+    padding-top:60px;
+    top:60px;
+    bottom:var(--footer-height);
+    left:0;
+    right:0;
+
+    background-color: var(--table-bg);    
+}
+
+.card-container {
+    perspective:1000px;
+
+    display:flex;
+	justify-content: center;
+	align-items: center;
+
+    transition:.3s;
+}
+
+.card-container .card {
+    
+    transform-style: preserve-3d;
+
+    display:flex;
+	justify-content: center;
+	align-items: center;
 
     position:relative;
     height:var(--card-height);
     width:var(--card-width);
 
-    background-color:var(--card-back);
+    transform: rotateY(180deg);
 
-    border: var(--card-border-size) solid var(--card-back-border);
-    border-radius: var(--card-border-radius-size);
+    transition:.3s;
 }
 
-.card:after {
-    content:" ";
+.card-container .active-card {
+    cursor:pointer;
+}
 
+.card-container .back {
     position:absolute;
-    z-index:-1;
-    height:100%;
     width:100%;
+    height:100%;
 
+    background-color: #e5e5f7;
+    background-image:  linear-gradient(135deg, var(--card-back) 25%, transparent 25%), linear-gradient(225deg, var(--card-back) 25%, transparent 25%), linear-gradient(45deg, var(--card-back) 25%, transparent 25%), linear-gradient(315deg, var(--card-back) 25%, var(--card-back-alt) 25%);
+    background-position:  0px 0, 0px 0, 0 0, 0 0;
+    background-size: calc(var(--card-height)/9.75) calc(var(--card-height)/9.75);
+    background-repeat: repeat;
 
-
-    border:calc(var(--card-border-size) + var(--card-outer-border-size)) solid var(--card-back);
+    border:var(--card-border-size) solid var(--card-back-border);
     border-radius: var(--card-border-radius-size);
+    box-shadow: 0 0 0 var(--card-border-radius-size) var(--card-back-border);
 }
 
-.card-back-iso {
-    background-color: var(--card-back-alt);
-    opacity: 0.8;
-    background-image:  linear-gradient(30deg, var(--card-back) 12%, transparent 12.5%, transparent 87%, var(--card-back) 87.5%, var(--card-back)), linear-gradient(150deg, var(--card-back) 12%, transparent 12.5%, transparent 87%, var(--card-back) 87.5%, var(--card-back)), linear-gradient(30deg, var(--card-back) 12%, transparent 12.5%, transparent 87%, var(--card-back) 87.5%, var(--card-back)), linear-gradient(150deg, var(--card-back) 12%, transparent 12.5%, transparent 87%, var(--card-back) 87.5%, var(--card-back)), linear-gradient(60deg, var(--card-back)77 25%, transparent 25.5%, transparent 75%, var(--card-back)77 75%, var(--card-back)77), linear-gradient(60deg, var(--card-back)77 25%, transparent 25.5%, transparent 75%, var(--card-back)77 75%, var(--card-back)77);
-    background-size: 20px 35px;
-    background-position: 0 0, 0 0, 10px 18px, 10px 18px, 0 0, 10px 18px;
+.active-card .back {
+    filter: brightness(1.25);
+
+    transform: scale(1.1);
+
+    transition: .2s;
+}
+
+.active-card:hover .back {
+    filter: brightness(1.5);
+
+    transition: .2s; 
+}
+
+.card-container .front {
+    display:flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    
+    position:absolute;
+    width:100%;
+    height:100%;
+
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+
+    border:var(--card-border-size) solid var(--card-front-border);
+    border-radius: var(--card-border-radius-size);
+
+    background-color:#FFFFFF;
+
+    transform:translateZ(.1px);
+}
+
+.card-container .num {
+    display:flex;
+    justify-content:center;
+    align-items: center;
+    
+    height:calc(var(--card-height) / 3);
+    width:90%;
+
+    font-family: 'Times New Roman', serif;
+    font-size:calc(var(--card-height) / 2);
+}
+
+.suit-one {
+    display:flex;
+    justify-content:flex-start;
+    align-items: center;
+    width:90%;
+    height:calc(var(--card-height) / 8);
+    
+    font-size:calc(var(--card-height) / 8);
+}
+
+.suit-two {
+    display:flex;
+    justify-content:flex-end;
+    align-items: center;
+    width:90%;
+
+    font-size:calc(var(--card-height) / 8);
+}
+
+.card-row {
+    display:flex;
+    flex-direction:row;
+    justify-content:space-evenly;
+    align-items:center;
+
+    height:calc(var(--card-height) * 1.4);
+    width:calc(var(--card-width)*14);
+    position:relative;
+
+    background-color:rgba(255,255,255,.1);
+
+    border-radius:calc(var(--card-height) / 10);
+}
+
+.left-label {
+    display:flex;
+    align-items: center;
+    justify-content: center;
+
+    position: absolute;
+    left:calc(var(--card-width)*-.75);
+    bottom:0;
+    z-index: 4px;
+    height:calc(var(--card-height)*1.4);
+    width:calc(var(--card-width)/2);
+
+    font-family: 'Roboto';
+    color:white;
+    font-size:18px;
+
+    background-color:rgba(255,255,255,.1);
+
+    border-radius:calc(var(--card-height) / 10);
+}
+
+.left-label p {
+    transform: rotateZ(-90deg);
+}
+
+#opponent-left {
+    height:calc((calc(var(--card-height)*2.8)) + (calc(var(--card-height) / 4)));
+}
+
+.extra-row {
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    position: absolute;
+    height:calc(var(--card-height) * 1.4);
+    width:calc(var(--card-width)*3);
+    right:calc(var(--card-width)*-3.5);
+
+    background-color:rgba(255,255,255,.1);
+
+    border-radius:calc(var(--card-height) / 10);
+}
+
+.extra-row .card-container {
+    margin-left:calc(var(--card-width)*-.1);
+    margin-right:calc(var(--card-width)*-.1);
+}
+
+#result-row {
+    display:flex;
+    justify-content: space-evenly;
+    align-items: center;
+
+    height:calc(var(--card-height) / 2);
+
+    font-family: 'Roboto';
+    font-size: 18px;
+    font-weight:lighter;
+    color:white;
+
+    background-color:var(--navbar-bg);
+
+    /* letter-spacing: var(--card-width); */
+}
+
+#result-text {
+    display:flex;
+    justify-content: center;
+    align-items: center;
+
+    height:80%;
+    width:calc(var(--card-width)*6);
+
+    cursor:pointer;
+}
+
+footer {
+    display:flex;
+    justify-content: center;
+    align-items: center;
+
+    position:fixed;
+    height:var(--footer-height);
+    width:100%;
+    bottom:0;
+    left:0;
+
+    color:white;
+    font-family: 'Roboto';
+
+    background-color:var(--navbar-bg);
 }
