@@ -10,6 +10,8 @@
 
     <body onload="OnLoad()" id="body">
 
+        
+
         <div class="template-container" style="display:none;">
             <div id="diamond-template" class="card-container">
                 <div id="diamond-" class="card" class="is-flipped">
@@ -68,7 +70,7 @@
 
         <div id="container">
             <div class="navbar-container">
-                <button id="new-game-button" onclick="NewGame()"> New Game </button>
+                <button id="new-game-button" onclick="NewGameNoTutorial()"> New Game </button>
                 <h1 style="font-family: 'Times New Roman', serif;color:white;"> Altior </h1>
                 <button id="settings-button" onclick="OpenSettings()"> Settings </button>
             </div>
@@ -76,29 +78,41 @@
             <div class="game-container">
     
                 <div id="heart-row" class="card-row"> 
-                    <div id="heart-extra" class="extra-row"> </div>
+                    <div id="heart-extra" class="extra-row"> <span class="tutorial-highlight" id="th-4"> </span> </div>
                 </div>
         
                 <div id="diamond-row" class="card-row"> 
                     <div class="left-label" id="opponent-left"> <p> Opponent </p> </div>
+                    <span class="tutorial-highlight" id="th-2"> </span>  <span class="tutorial-highlight" id="th-3"> </span>
                     <div id="diamond-extra" class="extra-row"> </div>
                 </div>
         
                 <div id="spade-row" class="card-row"> 
                     <div class="left-label"> <p> Player </p> </div>
+                    <span class="tutorial-highlight" id="th-1"> </span>
                     <div id="spade-extra" class="extra-row"> </div>
                 </div>    
     
                 <div id="result-row" class="card-row"> 
-                    <p id="win-text"> Points: 0</p>
+                    <p id="win-text"> Points: 0 </p>
                     <p id="result-text"> </p>
                     <p id="streak-text"> Streak: 0</p> 
-                    <button style="position:absolute; right:16px;font-family: 'Roboto';background:none;border:none;font-size:16px;color:white;"> ? </button>
+                </div>
+                <div id="tutorial-container">
+                    <p style="height:15%;margin:0;margin-top: 5px;"> How To Play </p>
+                    <p class="tutorial-text"> </p>
+                    <div class="tutorial-button-container" style="width:100%; display:flex;justify-content: center;align-items: center;border-radius: 12px;height:15%">
+                        <button class="tutorial-button" style="border-bottom-left-radius: 12px;" onclick="SetTutorialSlide(-1)"> &#8592; </button>
+                        <button class="tutorial-button" style="border-bottom-right-radius: 12px;" onclick="SetTutorialSlide(1)"> &#8594; </button>
+                    </div>
                 </div>
             </div>
         </div>
         
-        <footer> Created by&nbsp; <a href="https://michael-edgington.com/" target="_blank" style="text-decoration: underline;color:white;"> Michael Edgington </a> </footer>
+        <footer> 
+            Created by&nbsp; <a href="https://michael-edgington.com/" target="_blank" style="text-decoration: underline;color:white;"> Michael Edgington </a> 
+            <button style="position:absolute;right:12px;background:none;font-family: 'Roboto';color:white;border:none;font-size:12px;text-decoration: underline;" onclick="StartTutorial()"> How To Play? </button>
+        </footer>
     </body>
     <script src="script.js"></script> 
 </html>
