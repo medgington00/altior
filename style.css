@@ -13,6 +13,8 @@
 --card-back-alt-one: #830808;
 --card-back-two: #1464af;
 --card-back-alt-two: #0671d6;
+--card-back-three: #252525;
+--card-back-alt-three: #3b3b3b;
 --card-back-border: #FFFFFF;
 
 --card-front: #ffffff;
@@ -152,6 +154,7 @@ button {
 }
 
 .card-color-container .three {
+    background-color:var(--card-back-three);
 }
 
 .table-color-button {

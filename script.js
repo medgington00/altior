@@ -39,12 +39,25 @@ let testingcount = 10;
 let isTesting = false;
 let currenttest = 0;
 
+let isTwoTie = false;
+
 localStorage['streakSTORE'] = '0';
 localStorage['tableSTORE'];
 localStorage['cardColorSTORE'];
+localStorage['gamesPlayedSTORE'];
+localStorage['winnableGamesSTORE'];
 
 function OnLoad() {
     streak = parseInt(localStorage['streakSTORE'] || 'defaultValue');
+
+    if (localStorage.getItem("gamesPlayedSTORE") === null) {
+        localStorage.setItem("gamesPlayedSTORE","0");
+    }
+    
+    if (localStorage.getItem("winnableGamesSTORE") === null) {
+        localStorage.setItem("winnableGamesSTORE","0");
+    }
+    
 
     SetTableBackground(localStorage.getItem("tableSTORE"));
     SetCardColor(localStorage.getItem("cardColorSTORE"));
@@ -57,6 +70,10 @@ function OnLoad() {
 }
 
 function NewGame() {
+
+    isTwoTie = false;
+
+    streakText.innerHTML = "Streak: " + streak;
 
     resultText.style.textDecoration = "none";
     resultText.onclick = "";
@@ -213,14 +230,14 @@ function SelectHeart() {
     if(playerNum > oppNum) {
         points++;
     } else if(playerNum == 2 && oppNum == 2) {
-        points+=2;
+        isTwoTie = true;
     } else {
     }
 
     SetResultText(playerNum, oppNum);
     SetPointsText();
 
-    if(currentColumn==9) {
+    if(currentColumn==9 || isTwoTie) {
         GameOver();
     } else {
         NextColumn();
@@ -244,14 +261,14 @@ function SelectDiamond() {
     if(playerNum > oppNum) {
         points++;
     } else if(playerNum == 2 && oppNum == 2) {
-        points+=2;
+        isTwoTie = true;
     } else {
     }
 
     SetResultText(playerNum, oppNum);
     SetPointsText();
 
-    if(currentColumn==9) {
+    if(currentColumn==9 || isTwoTie) {
         GameOver();
     } else {
         NextColumn();
@@ -333,11 +350,12 @@ function GameOver() {
        FlipExtras(); 
     }, 500);
 
-    if(points >= 6)
+    if(points >= 6 || isTwoTie) {
         WinningGame();
-    if(points < 6) 
+    } else {
         LosingGame();
-
+    }
+        
     if(!isTesting) {
         heartCards[currentColumn].onclick = "";
         diamondCards[currentColumn].onclick = "";
@@ -345,6 +363,16 @@ function GameOver() {
         diamondCards[currentColumn].classList.remove("active-card");
     }
     
+    console.log(maxPoints);
+    if(maxPoints > 6) {
+        let temp1 = parseInt(localStorage.getItem("winnableGamesSTORE"));
+        temp1++;
+        localStorage.setItem("winnableGamesSTORE", temp1);
+    }
+
+    let temp2 = parseInt(localStorage.getItem("gamesPlayedSTORE"));
+    temp2++;
+    localStorage.setItem("gamesPlayedSTORE",temp2);
 
     if(isTesting) {
         CheckWinnable(maxPoints);
@@ -361,14 +389,15 @@ function CheckWinnable(pts) {
 function WinningGame() {
     streak++;
     localStorage['streakSTORE'] = streak + "";
+    if(!isTwoTie) {
+        resultText.innerHTML = "You win! Play again?";
+    }
     streakText.innerHTML = "Streak: " + streak;
-    resultText.innerHTML = "You win! Play again?";
 }
 
 function LosingGame() {
     streak = 0;
     localStorage['streakSTORE'] = streak + "";
-    streakText.innerHTML = "Streak: " + streak;
     resultText.innerHTML = "You lose. Try again?";
 }
 
@@ -384,12 +413,6 @@ function FlipExtras() {
     for(i = 0; i < diamondCards.length; i++) {
         FlipToFront(diamondCards[i]);
     }
-}
-
-function CloseResults() {
-    resultsContainer.style.opacity = "0";
-    resultsContainer.style.pointerEvents = "none";
-    container.onclick = "";
 }
 
 function RemoveArrayItem(item, arr) {
@@ -467,7 +490,7 @@ function SetResultText(pnum, onum) {
     } else if((onum == pnum) && pnum != 2) {
         resultText.innerHTML = "Loss. Ties go to opponent.";
     } else if(pnum==2 && onum==2) {
-        resultText.innerHTML = "Two-Tie! Both players have 2 (2 Points)!";
+        resultText.innerHTML = "Two-Tie! You win!";
     }
 }
 
@@ -482,7 +505,8 @@ function SetCardColor(num) {
         root.style.setProperty("--card-back",rootStyle.getPropertyValue("--card-back-two"));
         root.style.setProperty("--card-back-alt",rootStyle.getPropertyValue("--card-back-alt-two"));
     } else if(num==3) {
-
+        root.style.setProperty("--card-back",rootStyle.getPropertyValue("--card-back-three"));
+        root.style.setProperty("--card-back-alt",rootStyle.getPropertyValue("--card-back-alt-three"));
     }  
 }
 
