@@ -568,6 +568,7 @@ function StartTutorial() {
     diamondCards[0].classList.remove("active-card");
 
     tutorialContainer.style.display = "flex";
+    tutorialContainer.getElementsByClassName("tutorial-button")[1].innerHTML = "&#8594;";
     
     tutorialSlide = -1;
     SetTutorialSlide(1);
@@ -591,20 +592,20 @@ function SetTutorialSlide(i) {
 
     } else if(tutorialSlide==1) {
 
-        tutorialText.innerHTML = "The player sees their card first.";
+        tutorialText.innerHTML = "We see our card first.";
         FlipToFront(spadeCards[0]);
         thOne.style.opacity="1";
 
     } else if(tutorialSlide==2) {
 
-        tutorialText.innerHTML = "They must then pick between the opponents two suits<br>Let's go with hearts.";
+        tutorialText.innerHTML = "We must then pick between the opponents two suits.<br>Let's go with hearts.";
         FlipToBack(heartCards[0]);
         thTwo.style.opacity="1";
         winText.innerHTML = "Points: 0"
 
     } else if(tutorialSlide==3) {
 
-        tutorialText.innerHTML = "You won this round since 10 is higher than 5.";
+        tutorialText.innerHTML = "We won this round since 10 is higher than 5.";
         FlipToFront(heartCards[0]);
         FlipToBack(spadeCards[1]);
         winText.innerHTML = "Points: 1"
@@ -617,7 +618,7 @@ function SetTutorialSlide(i) {
         
     } else if(tutorialSlide==5) {
 
-        tutorialText.innerHTML = "You lost this round since Ace is higher than Queen.";
+        tutorialText.innerHTML = "We lost this round since Ace is higher than Queen.";
         FlipToFront(heartCards[1]);
         FlipToBack(spadeCards[2]);
 
@@ -664,7 +665,7 @@ function SetTutorialSlide(i) {
 
     } else if(tutorialSlide==11) {
 
-        tutorialText.innerHTML = "When you select a card, all cards of that suit to the left will also be flipped";
+        tutorialText.innerHTML = "When we select a card, all cards of that suit to the left will also be flipped";
         FlipToFront(diamondCards[4]);
         FlipToFront(diamondCards[3]);
         FlipToFront(diamondCards[2]);
@@ -696,8 +697,8 @@ function SetTutorialSlide(i) {
 
     } else if(tutorialSlide==15) {
 
-        tutorialContainer.style.display = "none";
-        NewGameNoTutorial();
+        CloseTutorial();
+
     }
     
     
@@ -874,4 +875,10 @@ function SetTutorialCards() {
     tempCard = spadeCard.cloneNode(true);
     spadeExtrasRow.appendChild(tempCard);
     extraCards.push(tempCard);
+}
+
+function CloseTutorial() {
+    HideTutorialElements();
+    tutorialContainer.style.display = "none";
+    NewGameNoTutorial();
 }

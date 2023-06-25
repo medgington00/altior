@@ -383,7 +383,7 @@ button {
     font-weight:lighter;
     color:white;
 
-    background-color:var(--navbar-bg);
+    background-color:rgba(255,255,255,.1);
 }
 
 #result-text {
@@ -421,6 +421,7 @@ footer {
     justify-content: space-between;
     align-items: center;
 
+    position: relative;
     height:calc(var(--card-height)*2);
     width:calc(var(--card-width)*6);
 
@@ -428,7 +429,7 @@ footer {
     font-size:18px;
     color:white;
 
-    background-color:var(--navbar-bg);
+    background-color:rgba(255,255,255,.1);
 
     border-radius: 12px;
 
@@ -459,9 +460,15 @@ footer {
     font-size:24px;
     color:white;
 
-    background-color:blue;
+    background-color:rgba(255,255,255,.1);
 
     border:none;
+    border-top:1px solid white;
+    
+}
+
+.tutorial-button:hover {
+    background-color:rgba(155,155,155,.1);
 }
 
 .tutorial-highlight {
