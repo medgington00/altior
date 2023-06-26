@@ -219,10 +219,16 @@ function NewGameNoTutorial() {
 
 function FlipToBack(card) {
     card.style.transform = "rotateY(0deg)";
+    setTimeout(() => {
+        card.getElementsByClassName("front")[0].style.display = "none";
+    }, 100);
 }
 
 function FlipToFront(card) {
     card.style.transform = "rotateY(180deg)";
+    setTimeout(() => {
+        card.getElementsByClassName("front")[0].style.display = "flex";
+    }, 100);
 }
 
 function SelectHeart() {
@@ -450,6 +456,10 @@ function FlipExtras() {
 
     for(i = 0; i < diamondCards.length; i++) {
         FlipToFront(diamondCards[i]);
+    }
+
+    for(i = 0; i < spadeCards.length; i++) {
+        FlipToFront(spadeCards[i]);
     }
 }
 
